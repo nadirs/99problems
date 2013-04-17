@@ -16,7 +16,7 @@ main = hspec $ do
             myButLast "ciao" `shouldBe` 'a'
             myButLast [[4],[22],[9]] `shouldBe` [22]
 
-    describe "elemAt" $ do
+    describe "elementAt" $ do
         it "finds the K'th element of a list" $ do
             myElementAt [3,-2,4,9,1] 3 `shouldBe` 4
             myElementAt "ciao" 2 `shouldBe` 'i'
