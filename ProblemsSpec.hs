@@ -60,3 +60,19 @@ main = hspec $ do
     describe "myRLEncode" $ do
         it "does run-length encoding of a list" $ do
             myRLEncode "aaaabccaadeeee" `shouldBe` [(4,'a'),(1,'b'),(2,'c'),(2,'a'),(1,'d'),(4,'e')]
+            
+    describe "myRLEncodeMod" $ do
+        it "RLEs unless an element has no duplicates (it is simply copied into the result list)" $ do
+            myRLEncodeMod "aaaabccaadeeee" `shouldBe`
+                [Multiple 4 'a',Single 'b',Multiple 2 'c', Multiple 2 'a',Single 'd',Multiple 4 'e']
+
+    describe "myDecodeRLEMod" $ do
+        it "decodes a run-length encoded list" $ do
+            myDecodeRLEMod [Multiple 4 'a',Single 'b',Multiple 2 'c',
+                           Multiple 2 'a',Single 'd',Multiple 4 'e']
+                           `shouldBe` "aaaabccaadeeee"
+
+    describe "myRLEncodeDirect" $ do
+        it "implements the so-called run-length encoding data compression method directly" $ do
+            myRLEncodeDirect "aaaabccaadeeee" `shouldBe`
+                [Multiple 4 'a',Single 'b',Multiple 2 'c', Multiple 2 'a',Single 'd',Multiple 4 'e']

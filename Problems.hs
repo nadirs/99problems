@@ -66,3 +66,31 @@ myRLEncode :: (Eq a) => [a] -> [(Int,a)]
 myRLEncode [] = []
 myRLEncode xs = zip (map length pack) (map head pack) where
     pack = (myPack xs)
+
+-- 11 Modified run-length encoding
+data RLEList a = Single a | Multiple Int a deriving (Show, Eq)
+
+myRLEncodeMod :: (Eq a) => [a] -> [RLEList a]
+myRLEncodeMod = (map encoder) . myRLEncode where
+    encoder (1, a) = Single a
+    encoder (n, a) = Multiple n a
+
+-- 12 Decode a run-length encoded list
+myDecodeRLEMod :: (Eq a) => [RLEList a] -> [a]
+myDecodeRLEMod [] = []
+myDecodeRLEMod (x:xs) = (decoder x) ++ myDecodeRLEMod xs where
+    decoder (Single a) = [a]
+    decoder (Multiple n a)
+        | n > 1     = [a] ++ decoder (Multiple (n-1) a)
+        | otherwise = decoder (Single a)
+
+-- 13 Run-length encoding of a list (direct solution)
+myRLEncodeDirect :: (Eq a) => [a] -> [RLEList a]
+myRLEncodeDirect [] = []
+myRLEncodeDirect (x:xs) = helpRLE 1 x xs where
+    helpRLE n a [] = [makeRLE n a]
+    helpRLE n a (x:xs)
+        | a == x    = helpRLE (n+1) a xs
+        | otherwise = (makeRLE n a) : (helpRLE 1 x xs)
+    makeRLE 1 a = Single a
+    makeRLE n a = Multiple n a
