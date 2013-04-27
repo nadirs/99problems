@@ -102,4 +102,7 @@ myDuplicate = foldr dupli [] where
 
 -- 15 Replicate the elements of a list a given number of times
 myReplicate :: [a] -> Int -> [a]
-myReplicate = undefined
+myReplicate xs n = foldr (repli n) [] xs where
+    repli n = (\ z xs -> replin n z xs)
+    replin 0 _ z = z
+    replin n x z = replin (n-1) x (x:z)
