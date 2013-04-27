@@ -84,4 +84,25 @@ main = hspec $ do
 
     describe "myReplicate" $ do
         it "replicate the elements of a list a given number of times" $ do
-        myReplicate "abc" 3 `shouldBe` "aaabbbccc"
+            myReplicate "abc" 3 `shouldBe` "aaabbbccc"
+
+    describe "myDropEvery" $ do
+        it "drops every N'th element from a list" $ do
+            myDropEvery "abcdefghik" 3 `shouldBe` "abdeghk"
+
+    describe "mySplit" $ do
+        it "splits a list into two parts, given the length of the first part" $ do
+            mySplit "abcdefghik" 3 `shouldBe` ("abc", "defghik")
+
+    describe "mySlice" $ do
+        it "extracts a slice from a list, given two inclusive limits, starting counting at 1" $ do
+            mySlice ['a','b','c','d','e','f','g','h','i','k'] 3 7 `shouldBe` "cdefg"
+
+    describe "myRotate" $ do
+        it "rotates a list N places to the left" $ do
+            myRotate ['a','b','c','d','e','f','g','h'] 3 `shouldBe` "defghabc"
+            myRotate ['a','b','c','d','e','f','g','h'] (-2) `shouldBe` "ghabcdef"
+
+    describe "myRemoveAt" $ do
+        it "removes the K'th element from a list" $ do
+            myRemoveAt 2 "abcd"`shouldBe` ('b',"acd")

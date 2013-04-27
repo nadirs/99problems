@@ -105,3 +105,30 @@ myReplicate xs n = foldr (repli n) [] xs where
     repli n = (\ z xs -> replin n z xs)
     replin 0 _ z = z
     replin n x z = replin (n-1) x (x:z)
+
+-- 16 Drop every N'th element from a list
+myDropEvery :: [a] -> Int -> [a]
+myDropEvery xs interval = helpDrop xs interval where
+    helpDrop [] _ = []
+    helpDrop (x:xs) 1 = helpDrop xs interval
+    helpDrop (x:xs) n = x : helpDrop xs (n - 1)
+
+-- 17 Split a list into two parts, given the length of the first part
+mySplit :: [a] -> Int -> ([a],[a])
+mySplit xs n = (take n xs, drop n xs)
+
+-- 18 Extract a slice from a list
+mySlice :: [a] -> Int -> Int -> [a]
+mySlice xs lo up = slicer xs where
+    slicer = drop (lo-1) . take (up)
+
+-- 19 Rotate a list N places to the left
+myRotate :: [a] -> Int -> [a]
+myRotate [] _ = []
+myRotate xs n = listify $ mySplit xs $ pos `mod` length xs where
+    pos = if n < 0 then (length xs) + n else n
+    listify (xs,ys) = ys ++ xs
+
+-- 20 Remove the K'th element from a list
+myRemoveAt :: Int -> [a] -> (a,[a])
+myRemoveAt k xs = ((xs !! (k-1)), (take (k-1) xs) ++ (drop k xs))
