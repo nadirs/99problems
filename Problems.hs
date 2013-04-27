@@ -94,3 +94,12 @@ myRLEncodeDirect (x:xs) = helpRLE 1 x xs where
         | otherwise = (makeRLE n a) : (helpRLE 1 x xs)
     makeRLE 1 a = Single a
     makeRLE n a = Multiple n a
+
+-- 14 Duplicate the elements of a list
+myDuplicate :: [a] -> [a]
+myDuplicate = foldr dupli [] where
+    dupli x z = x:x:z
+
+-- 15 Replicate the elements of a list a given number of times
+myReplicate :: [a] -> Int -> [a]
+myReplicate = undefined

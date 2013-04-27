@@ -42,7 +42,8 @@ main = hspec $ do
     describe "myFlatten" $ do
         it "flatten a nested list structure" $ do
             myFlatten (Elem 5) `shouldBe` [5]
-            myFlatten (List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]]) `shouldBe` [1,2,3,4,5]
+            myFlatten (List [Elem 1, List [Elem 2, List [Elem 3, Elem 4], Elem 5]]) `shouldBe`
+                [1,2,3,4,5]
 
     describe "myCompress" $ do
         it "eliminates consecutive duplicates of list elements" $ do
@@ -76,3 +77,11 @@ main = hspec $ do
         it "implements the so-called run-length encoding data compression method directly" $ do
             myRLEncodeDirect "aaaabccaadeeee" `shouldBe`
                 [Multiple 4 'a',Single 'b',Multiple 2 'c', Multiple 2 'a',Single 'd',Multiple 4 'e']
+
+    describe "myDuplicate" $ do
+        it "duplicates the elements of a list" $ do
+            myDuplicate [1, 2, 3] `shouldBe` [1,1,2,2,3,3]
+
+    describe "myReplicate" $ do
+        it "replicate the elements of a list a given number of times" $ do
+        myReplicate "abc" 3 `shouldBe` "aaabbbccc"
